@@ -51,6 +51,7 @@ Your task is to generate a detailed, SEO blog outline for the topic: **{topic}**
             <div id="outline-text" style="
                 font-family: monospace;
                 font-size: 16px;
+                color: black;
                 white-space: normal;
                 line-height: 1.6;
                 background-color: #f8f8f8;
@@ -60,6 +61,7 @@ Your task is to generate a detailed, SEO blog outline for the topic: **{topic}**
                 max-height: 400px;
                 overflow-y: auto;
                 margin-bottom: 20px;">
+
                 {safe_outline}
             </div>
             ''',
