@@ -68,53 +68,5 @@ Your task is to generate a detailed, SEO blog outline for the topic: **{topic}**
         )
 
         # Copy button with toast
-        # Copy button with toast (improved and working)
-copy_html = """
-    <script>
-    function copyToClipboard() {
-        const text = document.getElementById("outline-text").innerText;
-        navigator.clipboard.writeText(text).then(function() {
-            const toast = document.getElementById("toast");
-            toast.style.visibility = "visible";
-            toast.style.opacity = "1";
-            setTimeout(function() {
-                toast.style.opacity = "0";
-                toast.style.visibility = "hidden";
-            }, 2000);
-        });
-    }
-    </script>
-
-    <style>
-    #toast {
-        visibility: hidden;
-        opacity: 0;
-        transition: opacity 0.5s ease;
-        min-width: 120px;
-        background-color: #4CAF50;
-        color: white;
-        text-align: center;
-        border-radius: 8px;
-        padding: 10px;
-        position: fixed;
-        z-index: 9999;
-        right: 30px;
-        bottom: 30px;
-        font-size: 16px;
-    }
-    </style>
-
-    <button onclick="copyToClipboard()" style="
-        background-color: #4CAF50;
-        color: white;
-        padding: 10px 20px;
-        font-size: 16px;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;">
-         Copy to Clipboard
-    </button>
-
-    <div id="toast">Copied!</div>
-"""
-st.markdown(copy_html, unsafe_allow_html=True)
+        st.code(outline_text, language="markdown")
+      
