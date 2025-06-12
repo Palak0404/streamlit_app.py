@@ -35,17 +35,16 @@ Your task is to generate a detailed, SEO blog outline for the topic: **{topic}**
    - Bullet points for FAQs  
 11. Do not add any additional information or commentary.
 """
-      
-
         model = genai.GenerativeModel(model_name="models/gemini-1.5-flash")
         response = model.generate_content(prompt)
         outline_text = response.text
 
-        st.markdown("Generated Blog Outline")
+        st.markdown("### Generated Blog Outline")
+
         # Convert newlines and spaces for HTML rendering
         safe_outline = outline_text.replace("  ", "&nbsp;&nbsp;")
         safe_outline = safe_outline.replace("\n", "<br>")
-        
+
         # Display formatted outline
         st.markdown(
             f'''
@@ -66,59 +65,60 @@ Your task is to generate a detailed, SEO blog outline for the topic: **{topic}**
             ''',
             unsafe_allow_html=True
         )
+
         # Copy button with "Copied!" toast
         copy_html = f"""
-        <script>
-        function copyToClipboard() {{
-            const text = document.getElementById('outline-text').innerText;
-            navigator.clipboard.writeText(text).then(function() {{
-                var toast = document.getElementById("toast");
-                toast.className = "show";
-                setTimeout(function(){{ toast.className = toast.className.replace("show", ""); }}, 2000);
-            }});
-        }}
-        </script>
+            <script>
+            function copyToClipboard() {{
+                const text = document.getElementById('outline-text').innerText;
+                navigator.clipboard.writeText(text).then(function() {{
+                    var toast = document.getElementById("toast");
+                    toast.className = "toast show";
+                    setTimeout(function(){{ toast.className = toast.className.replace("show", ""); }}, 2000);
+                }});
+            }}
+            </script>
 
-        <style>
-        .toast {{
-            visibility: hidden;
-            min-width: 120px;
-            background-color: #4CAF50;
-            color: white;
-            text-align: center;
-            border-radius: 8px;
-            padding: 10px;
-            position: fixed;
-            z-index: 1;
-            right: 30px;
-            bottom: 30px;
-            font-size: 16px;
-        }}
-        .toast.show {{
-            visibility: visible;
-            animation: fadein 0.5s, fadeout 0.5s 1.5s;
-        }}
-        @keyframes fadein {{
-            from {{bottom: 0; opacity: 0;}} 
-            to {{bottom: 30px; opacity: 1;}}
-        }}
-        @keyframes fadeout {{
-            from {{bottom: 30px; opacity: 1;}} 
-            to {{bottom: 0; opacity: 0;}}
-        }}
-        </style>
+            <style>
+            .toast {{
+                visibility: hidden;
+                min-width: 120px;
+                background-color: #4CAF50;
+                color: white;
+                text-align: center;
+                border-radius: 8px;
+                padding: 10px;
+                position: fixed;
+                z-index: 1;
+                right: 30px;
+                bottom: 30px;
+                font-size: 16px;
+            }}
+            .toast.show {{
+                visibility: visible;
+                animation: fadein 0.5s, fadeout 0.5s 1.5s;
+            }}
+            @keyframes fadein {{
+                from {{bottom: 0; opacity: 0;}} 
+                to {{bottom: 30px; opacity: 1;}}
+            }}
+            @keyframes fadeout {{
+                from {{bottom: 30px; opacity: 1;}} 
+                to {{bottom: 0; opacity: 0;}}
+            }}
+            </style>
 
-        <button onclick="copyToClipboard()" style="
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;">
-            📋 Copy to Clipboard
-        </button>
+            <button onclick="copyToClipboard()" style="
+                background-color: #4CAF50;
+                color: white;
+                padding: 10px 20px;
+                font-size: 16px;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;">
+                📋 Copy to Clipboard
+            </button>
 
-        <div id="toast" class="toast">Copied!</div>
+            <div id="toast" class="toast">Copied!</div>
         """
         st.markdown(copy_html, unsafe_allow_html=True)
