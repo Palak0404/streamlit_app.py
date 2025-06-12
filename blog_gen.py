@@ -41,24 +41,77 @@ Your task is to generate a detailed, SEO blog outline for the topic: **{topic}**
         outline_text = response.text
 
         st.markdown("Generated Blog Outline")
-        st.code(outline_text, language="markdown")
+        st.markdown(
+            f'''
+            <div id="outline-text" style="
+                font-family: monospace;
+                font-size: 16px;
+                white-space: pre-wrap;
+                line-height: 1.6;
+                background-color: #f8f8f8;
+                padding: 16px;
+                border-radius: 8px;
+                border: 1px solid #ddd;
+                margin-bottom: 20px;">
+                {outline_text}
+            </div>
+            ''',
+            unsafe_allow_html=True
+        )
 
-        # Custom copy-to-clipboard button
-        copy_button = f"""
-        <button onclick="navigator.clipboard.writeText(`{outline_text}`)"
-                style="
-                    background-color: #4CAF50;
-                    color: white;
-                    padding: 10px 20px;
-                    font-size: 16px;
-                    border: none;
-                    border-radius: 8px;
-                    cursor: pointer;
-                    margin-top: 10px;">
-             Copy to Clipboard
+        # Copy button with "Copied!" toast
+        copy_html = f"""
+        <script>
+        function copyToClipboard() {{
+            const text = document.getElementById('outline-text').innerText;
+            navigator.clipboard.writeText(text).then(function() {{
+                var toast = document.getElementById("toast");
+                toast.className = "show";
+                setTimeout(function(){{ toast.className = toast.className.replace("show", ""); }}, 2000);
+            }});
+        }}
+        </script>
+
+        <style>
+        .toast {{
+            visibility: hidden;
+            min-width: 120px;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            border-radius: 8px;
+            padding: 10px;
+            position: fixed;
+            z-index: 1;
+            right: 30px;
+            bottom: 30px;
+            font-size: 16px;
+        }}
+        .toast.show {{
+            visibility: visible;
+            animation: fadein 0.5s, fadeout 0.5s 1.5s;
+        }}
+        @keyframes fadein {{
+            from {{bottom: 0; opacity: 0;}} 
+            to {{bottom: 30px; opacity: 1;}}
+        }}
+        @keyframes fadeout {{
+            from {{bottom: 30px; opacity: 1;}} 
+            to {{bottom: 0; opacity: 0;}}
+        }}
+        </style>
+
+        <button onclick="copyToClipboard()" style="
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;">
+            📋 Copy to Clipboard
         </button>
-         <div id="toast" class="toast">Copied!</div>
+
+        <div id="toast" class="toast">Copied!</div>
         """
-        st.markdown(copy_button, unsafe_allow_html=True)
-    else:
-        st.warning("Please enter a topic to generate the outline.")
+        st.markdown(copy_html, unsafe_allow_html=True)
