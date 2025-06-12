@@ -68,58 +68,53 @@ Your task is to generate a detailed, SEO blog outline for the topic: **{topic}**
         )
 
         # Copy button with toast
-        copy_html = f"""
-            <script>
-            function copyToClipboard() {{
-                const text = document.getElementById('outline-text').innerText;
-                navigator.clipboard.writeText(text).then(function() {{
-                    var toast = document.getElementById("toast");
-                    toast.className = "toast show";
-                    setTimeout(function(){{ toast.className = toast.className.replace("show", ""); }}, 2000);
-                }});
-            }}
-            </script>
+        # Copy button with toast (improved and working)
+copy_html = """
+    <script>
+    function copyToClipboard() {
+        const text = document.getElementById("outline-text").innerText;
+        navigator.clipboard.writeText(text).then(function() {
+            const toast = document.getElementById("toast");
+            toast.style.visibility = "visible";
+            toast.style.opacity = "1";
+            setTimeout(function() {
+                toast.style.opacity = "0";
+                toast.style.visibility = "hidden";
+            }, 2000);
+        });
+    }
+    </script>
 
-            <style>
-            .toast {{
-                visibility: hidden;
-                min-width: 120px;
-                background-color: #4CAF50;
-                color: white;
-                text-align: center;
-                border-radius: 8px;
-                padding: 10px;
-                position: fixed;
-                z-index: 1;
-                right: 30px;
-                bottom: 30px;
-                font-size: 16px;
-            }}
-            .toast.show {{
-                visibility: visible;
-                animation: fadein 0.5s, fadeout 0.5s 1.5s;
-            }}
-            @keyframes fadein {{
-                from {{bottom: 0; opacity: 0;}} 
-                to {{bottom: 30px; opacity: 1;}}
-            }}
-            @keyframes fadeout {{
-                from {{bottom: 30px; opacity: 1;}} 
-                to {{bottom: 0; opacity: 0;}}
-            }}
-            </style>
+    <style>
+    #toast {
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        min-width: 120px;
+        background-color: #4CAF50;
+        color: white;
+        text-align: center;
+        border-radius: 8px;
+        padding: 10px;
+        position: fixed;
+        z-index: 9999;
+        right: 30px;
+        bottom: 30px;
+        font-size: 16px;
+    }
+    </style>
 
-            <button onclick="copyToClipboard()" style="
-                background-color: #4CAF50;
-                color: white;
-                padding: 10px 20px;
-                font-size: 16px;
-                border: none;
-                border-radius: 8px;
-                cursor: pointer;">
-                Copy to Clipboard
-            </button>
+    <button onclick="copyToClipboard()" style="
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;">
+        📋 Copy to Clipboard
+    </button>
 
-            <div id="toast" class="toast">Copied!</div>
-        """
-        st.markdown(copy_html, unsafe_allow_html=True)
+    <div id="toast">Copied!</div>
+"""
+st.markdown(copy_html, unsafe_allow_html=True)
