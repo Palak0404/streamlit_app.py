@@ -112,7 +112,7 @@ copy_html = """
         border: none;
         border-radius: 8px;
         cursor: pointer;">
-        📋 Copy to Clipboard
+         Copy to Clipboard
     </button>
 
     <div id="toast">Copied!</div>
