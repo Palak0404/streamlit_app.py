@@ -1,5 +1,7 @@
 import streamlit as st
 import google.generativeai as genai
+import time
+import streamlit.components.v1 as components
 
 genai.configure(api_key=st.secrets["gcp"]["gemini_api_key"])
 st.set_page_config(page_title="Blog Outline Generator", layout="centered")
@@ -34,7 +36,8 @@ Your task is to generate a detailed, SEO blog outline for the topic: **{topic}**
    - Bullet points for FAQs  
 11. Do not add any additional information or commentary.
 """
-        model = genai.GenerativeModel(model_name="models/gemini-1.5-flash")
+        model = genai.GenerativeModel(model_name="models/gemini-2.0-flash")
+        time.sleep(15)
         response = model.generate_content(prompt)
         outline_text = response.text
 
@@ -65,3 +68,33 @@ Your task is to generate a detailed, SEO blog outline for the topic: **{topic}**
             ''',
             unsafe_allow_html=True
         )
+        components.html(f"""
+        <div>
+        <button onclick="copyOutline()" style="
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+        ">opy Outline</button>
+
+        <p id="copy-status" style="color: green; font-weight: bold;"></p>
+
+        <script>
+            async function copyOutline() {{
+            try {{
+                await navigator.clipboard.writeText(`{outline_text}`);
+                document.getElementById('copy-status').innerText = "Copied!";
+                setTimeout(() => {{
+                document.getElementById('copy-status').innerText = "";
+                }}, 2000);
+            }} catch (err) {{
+                document.getElementById('copy-status').innerText = "Failed to copy";
+            }}
+            }}
+        </script>
+        </div>
+        """, height=100)
