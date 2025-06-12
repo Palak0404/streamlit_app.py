@@ -1,6 +1,6 @@
 import streamlit as st
 import google.generativeai as genai
-import html
+import re
 
 genai.configure(api_key=st.secrets["gcp"]["gemini_api_key"])
 st.set_page_config(page_title="Blog Outline Generator", layout="centered")
@@ -42,28 +42,30 @@ Your task is to generate a detailed, SEO blog outline for the topic: **{topic}**
         outline_text = response.text
 
         st.markdown("Generated Blog Outline")
-         escaped_outline = html.escape(outline_text)
-
-    # Styled output with scrollable div
-    st.markdown(
-        f'''
-        <div id="outline-text" style="
-            font-family: monospace;
-            font-size: 16px;
-            white-space: pre-wrap;
-            line-height: 1.6;
-            background-color: #f8f8f8;
-            padding: 16px;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            max-height: 400px;
-            overflow-y: auto;
-            margin-bottom: 20px;">
-            {escaped_outline}
-        </div>
-        ''',
-        unsafe_allow_html=True
-    )
+        # Convert newlines and spaces for HTML rendering
+        safe_outline = outline_text.replace("  ", "&nbsp;&nbsp;")
+        safe_outline = safe_outline.replace("\n", "<br>")
+        
+        # Display formatted outline
+        st.markdown(
+            f'''
+            <div id="outline-text" style="
+                font-family: monospace;
+                font-size: 16px;
+                white-space: normal;
+                line-height: 1.6;
+                background-color: #f8f8f8;
+                padding: 16px;
+                border-radius: 8px;
+                border: 1px solid #ddd;
+                max-height: 400px;
+                overflow-y: auto;
+                margin-bottom: 20px;">
+                {safe_outline}
+            </div>
+            ''',
+            unsafe_allow_html=True
+        )
         # Copy button with "Copied!" toast
         copy_html = f"""
         <script>
