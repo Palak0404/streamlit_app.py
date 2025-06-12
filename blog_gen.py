@@ -45,29 +45,29 @@ Your task is to generate a detailed, SEO blog outline for the topic: **{topic}**
         safe_outline = outline_text.replace("  ", "&nbsp;&nbsp;")
         safe_outline = safe_outline.replace("\n", "<br>")
 
-        # Display formatted outline
+        # Display formatted outline with forced styles
         st.markdown(
             f'''
             <div id="outline-text" style="
-            font-family: monospace;
-            font-size: 16px;
-            color: black;
-            white-space: normal;
-            line-height: 1.6;
-            background-color: #f8f8f8;
-            padding: 16px;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            max-height: 400px;
-            overflow-y: auto;
-            margin-bottom: 20px;">
+                font-family: monospace;
+                font-size: 16px;
+                color: black !important;
+                background-color: #f8f8f8 !important;
+                white-space: normal;
+                line-height: 1.6;
+                padding: 16px;
+                border-radius: 8px;
+                border: 1px solid #ddd;
+                max-height: 400px;
+                overflow-y: auto;
+                margin-bottom: 20px;">
                 {safe_outline}
             </div>
             ''',
             unsafe_allow_html=True
         )
 
-        # Copy button with "Copied!" toast
+        # Copy button with toast
         copy_html = f"""
             <script>
             function copyToClipboard() {{
@@ -117,7 +117,7 @@ Your task is to generate a detailed, SEO blog outline for the topic: **{topic}**
                 border: none;
                 border-radius: 8px;
                 cursor: pointer;">
-                📋 Copy to Clipboard
+                Copy to Clipboard
             </button>
 
             <div id="toast" class="toast">Copied!</div>
