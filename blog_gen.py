@@ -67,6 +67,5 @@ Your task is to generate a detailed, SEO blog outline for the topic: **{topic}**
             unsafe_allow_html=True
         )
 
-        # Copy button with toast
-        st.code(outline_text, language="markdown")
+       
       
