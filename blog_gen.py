@@ -49,19 +49,18 @@ Your task is to generate a detailed, SEO blog outline for the topic: **{topic}**
         st.markdown(
             f'''
             <div id="outline-text" style="
-                font-family: monospace;
-                font-size: 16px;
-                color: black;
-                white-space: normal;
-                line-height: 1.6;
-                background-color: #f8f8f8;
-                padding: 16px;
-                border-radius: 8px;
-                border: 1px solid #ddd;
-                max-height: 400px;
-                overflow-y: auto;
-                margin-bottom: 20px;">
-
+            font-family: monospace;
+            font-size: 16px;
+            color: black;
+            white-space: normal;
+            line-height: 1.6;
+            background-color: #f8f8f8;
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;">
                 {safe_outline}
             </div>
             ''',
