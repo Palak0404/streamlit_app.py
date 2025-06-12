@@ -79,7 +79,7 @@ Your task is to generate a detailed, SEO blog outline for the topic: **{topic}**
             border-radius: 8px;
             cursor: pointer;
             margin-top: 10px;
-        ">opy Outline</button>
+        ">copy Outline</button>
 
         <p id="copy-status" style="color: green; font-weight: bold;"></p>
 
