@@ -66,7 +66,7 @@ Your task is to generate a detailed, SEO blog outline for the topic: **{topic}**
             ''',
             unsafe_allow_html=True
         )
-        components.html(f"""
+components.html(f"""
     <div style="position: relative;">
         <textarea id="outline-text" readonly style="
             width: 100%;
@@ -89,7 +89,7 @@ Your task is to generate a detailed, SEO blog outline for the topic: **{topic}**
             border: none;
             border-radius: 8px;
             cursor: pointer;
-        ">Copy to Clipboard</button>
+        ">📋 Copy to Clipboard</button>
         <div id="toast" style="
             visibility: hidden;
             min-width: 120px;
@@ -110,7 +110,7 @@ Your task is to generate a detailed, SEO blog outline for the topic: **{topic}**
     function copyToClipboard() {{
         var copyText = document.getElementById("outline-text");
         copyText.select();
-        copyText.setSelectionRange(0, 99999); // For mobile
+        copyText.setSelectionRange(0, 99999); // Mobile
         document.execCommand("copy");
 
         var toast = document.getElementById("toast");
@@ -121,9 +121,4 @@ Your task is to generate a detailed, SEO blog outline for the topic: **{topic}**
     }}
     </script>
 """, height=500)
-
        
-
-
-       
-      
