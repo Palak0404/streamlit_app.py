@@ -1,6 +1,6 @@
 import streamlit as st
 import google.generativeai as genai
-import re
+import streamlit.components.v1 as components
 
 genai.configure(api_key=st.secrets["gcp"]["gemini_api_key"])
 st.set_page_config(page_title="Blog Outline Generator", layout="centered")
@@ -66,6 +66,64 @@ Your task is to generate a detailed, SEO blog outline for the topic: **{topic}**
             ''',
             unsafe_allow_html=True
         )
+        components.html(f"""
+    <div style="position: relative;">
+        <textarea id="outline-text" readonly style="
+            width: 100%;
+            height: 400px;
+            padding: 16px;
+            font-size: 16px;
+            font-family: monospace;
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            line-height: 1.6;
+            resize: none;
+        ">{outline_text}</textarea>
+        <button onclick="copyToClipboard()" style="
+            margin-top: 10px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        ">Copy to Clipboard</button>
+        <div id="toast" style="
+            visibility: hidden;
+            min-width: 120px;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            border-radius: 8px;
+            padding: 10px;
+            position: fixed;
+            z-index: 1;
+            right: 30px;
+            bottom: 30px;
+            font-size: 16px;
+        ">Copied!</div>
+    </div>
+
+    <script>
+    function copyToClipboard() {{
+        var copyText = document.getElementById("outline-text");
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); // For mobile
+        document.execCommand("copy");
+
+        var toast = document.getElementById("toast");
+        toast.style.visibility = "visible";
+        setTimeout(function() {{
+            toast.style.visibility = "hidden";
+        }}, 2000);
+    }}
+    </script>
+""", height=500)
+
+       
+
 
        
       
