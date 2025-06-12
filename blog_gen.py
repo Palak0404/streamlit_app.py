@@ -38,9 +38,27 @@ Your task is to generate a detailed, SEO blog outline for the topic: **{topic}**
 
         model = genai.GenerativeModel(model_name="models/gemini-1.5-flash")
         response = model.generate_content(prompt)
+        outline_text = response.text
 
-        # Show the actual blog outline
         st.markdown("Generated Blog Outline")
-        st.markdown(response.text)
+        st.code(outline_text, language="markdown")
+
+        # Custom copy-to-clipboard button
+        copy_button = f"""
+        <button onclick="navigator.clipboard.writeText(`{outline_text}`)"
+                style="
+                    background-color: #4CAF50;
+                    color: white;
+                    padding: 10px 20px;
+                    font-size: 16px;
+                    border: none;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    margin-top: 10px;">
+             Copy to Clipboard
+        </button>
+         <div id="toast" class="toast">Copied!</div>
+        """
+        st.markdown(copy_button, unsafe_allow_html=True)
     else:
         st.warning("Please enter a topic to generate the outline.")
